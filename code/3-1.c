@@ -80,7 +80,7 @@ int main() {
             scanf("%s", name);
             delete(name);
         } else if (strcmp(command, "print") == 0) {
-            printAll();
+            print();
         } else if (strcmp(command, "quit") == 0) {
             quit();
         }

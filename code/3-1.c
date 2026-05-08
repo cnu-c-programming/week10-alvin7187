@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+typedef struct Node {
+    char name[50];
+    int score;
+    struct Node* next; 
+} Node;
+
+Node* head = NULL; 
+
+
+void add(char* name, int score) {
+    
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    strcpy(newNode->name, name);
+    (*newNode).score = score;
+    (*newNode).next = NULL;
+
+        Node* curr = head;
+        while ((*curr).next != NULL) {
+            curr = (*curr).next;
+        }
+        (*curr).next = newNode;
+    
+}
+
+void delete(char* name) {
+    Node* curr = head;
+    Node* prev = NULL;
+
+    while (curr != NULL) {
+        
+        if (strcmp((*curr).name, name) == 0) {
+            if (prev == NULL) {
+                head = (*curr).next; // 첫 번째 노드를 삭제하는 경우
+            } else {
+                (*prev).next = (*curr).next; // 중간이나 마지막 노드를 삭제하는 경우
+            }
+            free(curr);
+            return;
+        }
+        prev = curr;
+        curr = (*curr).next;
+    }
+}
+
+
+void print() {
+    Node* curr = head;
+    while (curr != NULL) {
+        printf("%s %d\n", (*curr).name, (*curr).score);
+    }
+}
+
+
+void quit() {
+    Node* curr = head;
+    while (curr != NULL) {
+        Node* next = (*curr).next;
+        free(curr); 
+        curr = next;
+    }
+    exit(0);
+}
+
+int main() {
+    char command[20];
+    char name[50];
+    int score;
+
+    
+    while (1) {
+        if (strcmp(command, "add") == 0) {
+            scanf("%s %d", name, &score);
+            add(name, score);
+        } else if (strcmp(command, "delete") == 0) {
+            scanf("%s", name);
+            delete(name);
+        } else if (strcmp(command, "print") == 0) {
+            printAll();
+        } else if (strcmp(command, "quit") == 0) {
+            quit();
+        }
+    }
+
+    return 0;
+}

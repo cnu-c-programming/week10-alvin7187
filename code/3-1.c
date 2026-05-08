@@ -71,7 +71,7 @@ int main() {
     int score;
 
     while (1) {
-        
+        scanf("%s", command);
 
         if (strcmp(command, "add") == 0) {
             scanf("%s %d", name, &score);
